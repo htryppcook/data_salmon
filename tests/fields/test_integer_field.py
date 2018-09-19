@@ -5,140 +5,118 @@ from nose.tools import assert_true
 from data_salmon.fields.integer_field import IntegerField
 
 class TestIntegerField:
-    def test_value(self):
-        test_cases = [
-            { 'input': {'kwargs':{'value':0}}, 'expected': [0] },
-            { 'input': {'kwargs':{'value':1}}, 'expected': [1] },
-            { 'input': {'kwargs':{'value':2}}, 'expected': [2] },
-            { 'input': {'kwargs':{'value':'0'}}, 'expected': [0] },
-            { 'input': {'kwargs':{'value':'1'}}, 'expected': [1] },
-            { 'input': {'kwargs':{'value':None}}, 'expected': TypeError() },
-            { 'input': {'kwargs':{'value':'a'}}, 'expected': ValueError() },
-            { 'input': {'kwargs':{'value':[]}}, 'expected': TypeError() },
-            { 'input': {'kwargs':{'value':[0]}}, 'expected': TypeError() },
-            { 'input': {'kwargs':{'value':{}}}, 'expected': TypeError() },
-            { 'input': {'kwargs':{'value':{'a':0}}}, 'expected': TypeError() },
-            { 'input': {'kwargs':{'value':{0:'a'}}}, 'expected': TypeError() }
-        ]
-
-        for test_case in test_cases:
-            try:
-                field = IntegerField(choice_method='value',
-                    **test_case['input']['kwargs'])
-                gen = field.evaluate()
-                for results in zip(gen, test_case['expected']):
-                    assert_equals(results[0], results[1])
-            except TypeError as te:
-                assert_equals(type(te), type(test_case['expected']))
-            except ValueError as ve:
-                assert_equals(type(ve), type(test_case['expected']))
-
-    def test_incremental_range(self):
+    def test_integer_field(self):
         test_cases = [
             {
-                'input': { 'kwargs':{ 'increment':1, 'min':0, 'max':5 } },
-                'expected': [0, 1, 2, 3, 4, 5, 0, 1]
+                'input': {
+                    'kwargs': {
+                        'value': 1
+                    }
+                },
+                'expected': {
+                    'value': 1,
+                    'increment': None,
+                    'min': None,
+                    'max': None,
+                    'choice_method': 'value',
+                    'choices': []
+                }
             },
             {
-                'input': { 'kwargs':{ 'increment':2, 'min':0, 'max':5 } },
-                'expected': [0, 2, 4, 0, 2, 4]
-            },
-            {
-                'input': { 'kwargs':{ 'increment':0, 'min':0, 'max':5 } },
-                'expected': [0, 0, 0, 0]
-            },
-            {
-                'input': { 'kwargs':{ 'increment':1, 'min':5, 'max':0 } },
-                'expected': ValueError()
-            },
-            {
-                'input': { 'kwargs':{ 'increment':-1, 'min':0, 'max':5 } },
-                'expected': [0, 5, 4, 3, 2, 1]
-            },
-            { 'input': {'kwargs':{'value':1}}, 'expected': ValueError() },
-            { 'input': {'kwargs':{'value':'1'}}, 'expected': ValueError() }
-        ]
-
-        for test_case in test_cases:
-            try:
-                field = IntegerField(choice_method='incremental_range',
-                    **test_case['input']['kwargs'])
-                gen = field.evaluate()
-                for results in zip(gen, test_case['expected']):
-                    assert_equals(results[0], results[1])
-            except TypeError as te:
-                assert_equals(type(te), type(test_case['expected']))
-            except ValueError as ve:
-                assert_equals(type(ve), type(test_case['expected']))
-
-    def test_random_range(self):
-        test_cases = [
-            {
-                'input': { 'kwargs': { 'min': 0, 'max': 2 } },
-                'expected': range(0, 11)
+                'input': {
+                    'kwargs': {
+                        'choice_method': 'random_range',
+                        'increment': 1,
+                        'min': 1,
+                        'max': 42
+                    }
+                },
+                'expected': {
+                    'value': None,
+                    'increment': 1,
+                    'min': 1,
+                    'max': 43,
+                    'choice_method': 'random_range',
+                    'choices': []
+                }
             }
         ]
 
         for test_case in test_cases:
-            try:
-                field = IntegerField(choice_method='random_range',
-                    **test_case['input']['kwargs'])
-                gen = field.evaluate()
-                for results in zip(gen, test_case['expected']):
-                    assert_true(
-                        results[0] >= test_case['input']['kwargs']['min'])
-                    assert_true(
-                        results[0] <= test_case['input']['kwargs']['max'])
-            except TypeError as te:
-                assert_equals(type(te), type(test_case['expected']))
-            except ValueError as ve:
-                assert_equals(type(ve), type(test_case['expected']))
+            field = IntegerField(**test_case['input']['kwargs'])
+            for key in test_case['expected'].keys():
+                assert_equals(getattr(field, key), test_case['expected'][key])
 
-    def test_ordered_choice(self):
+    def test_format(self):
         test_cases = [
             {
-                'input': { 'kwargs': { 'choices': [0, 1, 2, 3] } },
-                'expected': [0, 1, 2, 3]
+                'input': {
+                    'value': 1,
+                    'bit_length': None,
+                    'output_format': 'txt'
+                },
+                'expected': '1'
             },
             {
-                'input': { 'kwargs': { 'choices': [0, 1, 0, 0, 3] } },
-                'expected': [0, 1, 0, 0, 3, 0, 1]
-            }
+                'input': {
+                    'value': 255,
+                    'bit_length': 1,
+                    'output_format': 'hex'
+                },
+                'expected': 'ff'
+            },
+            {
+                'input': {
+                    'value': 65535,
+                    'bit_length': 2,
+                    'output_format': 'hex'
+                },
+                'expected': 'ffff'
+            },
+            {
+                'input': {
+                    'value': 65535,
+                    'bit_length': 2,
+                    'output_format': 'bin'
+                },
+                'expected': bytes([0xff, 0xff])
+            },
+            {
+                'input': {
+                    'value': 65535,
+                    'bit_length': 4,
+                    'output_format': 'bin'
+                },
+                'expected': bytes([0x00, 0x00, 0xff, 0xff])
+            },
+            {
+                'input': {
+                    'value': 65535,
+                    'bit_length': 1,
+                    'output_format': 'bin'
+                },
+                'expected': OverflowError()
+            },
+            {
+                'input': {
+                    'value': 65535,
+                    'bit_length': 1,
+                    'output_format': None
+                },
+                'expected': NotImplementedError()
+            },
         ]
 
         for test_case in test_cases:
             try:
-                field = IntegerField(choice_method='ordered_choice',
-                    **test_case['input']['kwargs'])
-                gen = field.evaluate()
-                for results in zip(gen, test_case['expected']):
-                    assert_equals(results[0], results[1])
-            except TypeError as te:
-                assert_equals(type(te), type(test_case['expected']))
-            except ValueError as ve:
-                assert_equals(type(ve), type(test_case['expected']))
-
-    def test_random_choice(self):
-        test_cases = [
-            {
-                'input': { 'kwargs': { 'choices': [0, 1, 2, 3] } },
-                'expected': range(0, 10)
-            },
-            {
-                'input': { 'kwargs': { 'choices': [0, 1, 0, 0, 3] } },
-                'expected': range(0, 10)
-            }
-        ]
-
-        for test_case in test_cases:
-            try:
-                field = IntegerField(choice_method='random_choice',
-                    **test_case['input']['kwargs'])
-                gen = field.evaluate()
-                for results in zip(gen, test_case['expected']):
-                    assert_true(
-                        results[0] in test_case['input']['kwargs']['choices'])
-            except TypeError as te:
-                assert_equals(type(te), type(test_case['expected']))
-            except ValueError as ve:
-                assert_equals(type(ve), type(test_case['expected']))
+                field = IntegerField(
+                    test_case['input']['value'],
+                    bit_length=test_case['input']['bit_length'])
+                assert_equals(
+                    field.format(field.value,
+                                 test_case['input']['output_format']),
+                    test_case['expected'])
+            except OverflowError as oe:
+                assert_equals(type(oe), type(test_case['expected']))
+            except NotImplementedError as nie:
+                assert_equals(type(nie), type(test_case['expected']))
