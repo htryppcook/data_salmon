@@ -11,20 +11,21 @@ class Field(abc.ABC):
 
     supported_choice_methods = ('value')
 
-    def __init__(self, choice_method, value=None):
-        if choice_method not in self.supported_choice_methods:
+    def __init__(self, name, method, value=None):
+        if method not in self.supported_choice_methods:
             raise NotSupportedError(
                 "'{} is not a supported choice method, supported: {}'".format(
-                    choice_method, self.supported_choice_methods))
+                    method, self.supported_choice_methods))
+        self.name = name
         self.value = value
-        self.choice_method = choice_method
+        self.method = method
 
     def evaluate(self):
         '''
             Returns a generator that provides all expected values for this
             Field instance.
         '''
-        gen = ChoiceMethod.evaluate_choice_method(self.choice_method)(self)()
+        gen = ChoiceMethod.evaluate_choice_method(self.method)(self)()
 
         def format_generator():
             for item in gen:

@@ -24,7 +24,7 @@ class TestChoiceMethods:
 
         for test_case in test_cases:
             try:
-                field = IntegerField(choice_method='value',
+                field = IntegerField(name='field', method='value',
                     **test_case['input']['kwargs'])
                 gen = field.evaluate()
                 for results in zip(gen, test_case['expected']):
@@ -62,7 +62,7 @@ class TestChoiceMethods:
 
         for test_case in test_cases:
             try:
-                field = IntegerField(choice_method='incremental_range',
+                field = IntegerField(name='field', method='incremental_range',
                     **test_case['input']['kwargs'])
                 gen = field.evaluate()
                 for results in zip(gen, test_case['expected']):
@@ -82,7 +82,7 @@ class TestChoiceMethods:
 
         for test_case in test_cases:
             try:
-                field = IntegerField(choice_method='random_range',
+                field = IntegerField(name='field', method='random_range',
                     **test_case['input']['kwargs'])
                 gen = field.evaluate()
                 for results in zip(gen, test_case['expected']):
@@ -110,7 +110,7 @@ class TestChoiceMethods:
 
         for test_case in test_cases:
             try:
-                field = IntegerField(choice_method='ordered_choice',
+                field = IntegerField(name='field', method='ordered_choice',
                     **test_case['input']['kwargs'])
                 gen = field.evaluate()
                 for results in zip(gen, test_case['expected']):
@@ -140,7 +140,7 @@ class TestChoiceMethods:
 
         for test_case in test_cases:
             try:
-                field = IntegerField(choice_method='random_choice',
+                field = IntegerField(name='field', method='random_choice',
                     **test_case['input']['kwargs'])
                 gen = field.evaluate()
                 for results in zip(gen, test_case['expected']['count']):

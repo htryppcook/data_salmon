@@ -18,14 +18,14 @@ class TestIntegerField:
                     'increment': None,
                     'min': None,
                     'max': None,
-                    'choice_method': 'value',
+                    'method': 'value',
                     'choices': []
                 }
             },
             {
                 'input': {
                     'kwargs': {
-                        'choice_method': 'random_range',
+                        'method': 'random_range',
                         'increment': 1,
                         'min': 1,
                         'max': 42
@@ -36,14 +36,14 @@ class TestIntegerField:
                     'increment': 1,
                     'min': 1,
                     'max': 43,
-                    'choice_method': 'random_range',
+                    'method': 'random_range',
                     'choices': []
                 }
             }
         ]
 
         for test_case in test_cases:
-            field = IntegerField(**test_case['input']['kwargs'])
+            field = IntegerField(name='field', **test_case['input']['kwargs'])
             for key in test_case['expected'].keys():
                 assert_equals(getattr(field, key), test_case['expected'][key])
 
@@ -110,7 +110,8 @@ class TestIntegerField:
         for test_case in test_cases:
             try:
                 field = IntegerField(
-                    test_case['input']['value'],
+                    name='field',
+                    value=test_case['input']['value'],
                     bit_length=test_case['input']['bit_length'])
                 assert_equals(
                     field.format(field.value,

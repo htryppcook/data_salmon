@@ -1,0 +1,17 @@
+{
+    "name": "dataset_1",
+    "fields": [
+        {
+            "name": "field0",
+            "type": "string",
+            "method": "value",
+            "value": "abcd"
+        },
+        {
+            "name": "field1",
+            "type": "int32",
+            "method": "value",
+            "value": 65535
+        }
+    ]
+}

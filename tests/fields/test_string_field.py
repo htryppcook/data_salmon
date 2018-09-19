@@ -15,33 +15,33 @@ class TestStringField:
                 },
                 'expected': {
                     'value': '1',
-                    'choice_method': 'value',
+                    'method': 'value',
                     'choices': []
                 }
             },
             {
                 'input': {
                     'kwargs': {
-                        'choice_method': 'ordered_choice',
+                        'method': 'ordered_choice',
                         'choices': ['a', 'b', 'c']
                     }
                 },
                 'expected': {
                     'value': None,
-                    'choice_method': 'ordered_choice',
+                    'method': 'ordered_choice',
                     'choices': ['a', 'b', 'c']
                 }
             },
             {
                 'input': {
                     'kwargs': {
-                        'choice_method': 'random_choice',
+                        'method': 'random_choice',
                         'choices': ['a', 'b', 'c']
                     }
                 },
                 'expected': {
                     'value': None,
-                    'choice_method': 'random_choice',
+                    'method': 'random_choice',
                     'choices': ['a', 'b', 'c']
                 }
             },
@@ -49,20 +49,20 @@ class TestStringField:
                 'input': {
                     'kwargs': {
                         'value': 'abcd',
-                        'choice_method': 'ordered_choice',
+                        'method': 'ordered_choice',
                         'choices': ['a', 'b', 'c']
                     }
                 },
                 'expected': {
                     'value': 'abcd',
-                    'choice_method': 'ordered_choice',
+                    'method': 'ordered_choice',
                     'choices': ['a', 'b', 'c']
                 }
             },
         ]
 
         for test_case in test_cases:
-            field = StringField(**test_case['input']['kwargs'])
+            field = StringField(name='field', **test_case['input']['kwargs'])
             for key in test_case['expected'].keys():
                 assert_equals(getattr(field, key), test_case['expected'][key])
 
@@ -100,8 +100,8 @@ class TestStringField:
 
         for test_case in test_cases:
             try:
-                field = StringField(test_case['input']['value'])
-                print(test_case['expected'])
+                field = StringField(
+                    name='field', value=test_case['input']['value'])
                 assert_equals(
                     field.format(field.value,
                                  test_case['input']['output_format']),
