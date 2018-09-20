@@ -1,0 +1,31 @@
+{
+    "name": "dataset_2",
+    "fields": [
+        {
+            "name": "field0",
+            "type": "int32",
+            "method": "incremental_range",
+            "min": 0,
+            "max": 100,
+            "increment": 1
+        },
+        {
+            "name": "field1",
+            "type": "string",
+            "method": "value",
+            "value": "abcd"
+        },
+        {
+            "name": "field2",
+            "type": "int32",
+            "method": "value",
+            "value": 42
+        },
+        {
+            "name": "field3",
+            "type": "int32",
+            "method": "ordered_choice",
+            "choices": [4,8,15,16,23,42]
+        }
+    ]
+}

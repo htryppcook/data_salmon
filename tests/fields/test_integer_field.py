@@ -60,7 +60,7 @@ class TestIntegerField:
             {
                 'input': {
                     'value': 255,
-                    'bit_length': 1,
+                    'bit_length': 8,
                     'output_format': 'hex'
                 },
                 'expected': 'ff'
@@ -68,7 +68,7 @@ class TestIntegerField:
             {
                 'input': {
                     'value': 65535,
-                    'bit_length': 2,
+                    'bit_length': 16,
                     'output_format': 'hex'
                 },
                 'expected': 'ffff'
@@ -76,7 +76,7 @@ class TestIntegerField:
             {
                 'input': {
                     'value': 65535,
-                    'bit_length': 2,
+                    'bit_length': 16,
                     'output_format': 'bin'
                 },
                 'expected': bytes([0xff, 0xff])
@@ -84,7 +84,7 @@ class TestIntegerField:
             {
                 'input': {
                     'value': 65535,
-                    'bit_length': 4,
+                    'bit_length': 32,
                     'output_format': 'bin'
                 },
                 'expected': bytes([0x00, 0x00, 0xff, 0xff])
@@ -92,7 +92,7 @@ class TestIntegerField:
             {
                 'input': {
                     'value': 65535,
-                    'bit_length': 1,
+                    'bit_length': 8,
                     'output_format': 'bin'
                 },
                 'expected': OverflowError()
@@ -100,7 +100,7 @@ class TestIntegerField:
             {
                 'input': {
                     'value': 65535,
-                    'bit_length': 1,
+                    'bit_length': 8,
                     'output_format': None
                 },
                 'expected': NotImplementedError()

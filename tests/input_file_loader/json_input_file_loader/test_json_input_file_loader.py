@@ -101,7 +101,7 @@ class TestJsonInputFileLoader:
                 assert_equals(type(ve), type(test_case['expected']))
 
     def test_load(self):
-        input_file = 'tests/input_file_loader/json_input_file_loader/test_datasets/dataset_1.json'
+        input_file = 'tests/datasets/dataset_1.json'
         dataset = JsonInputFileLoader.load(input_file)
 
         assert_equals(len(dataset.fields), 2)

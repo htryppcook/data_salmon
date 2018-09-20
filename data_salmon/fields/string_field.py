@@ -1,6 +1,4 @@
 
-from ..dataset.output_formats import output_formats
-
 from .field import Field
 
 class StringField(Field):
@@ -22,7 +20,7 @@ class StringField(Field):
               self.value, self.method, self.choices)
 
     def format(self, item, output_format='txt'):
-        if output_format == 'txt':
+        if output_format == 'csv' or output_format == 'txt':
             return item
         elif output_format == 'hex':
             return item.encode().hex()

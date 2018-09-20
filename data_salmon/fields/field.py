@@ -1,7 +1,7 @@
 
 import abc
 
-from .choice_methods import ChoiceMethod
+from ..strategies import StrategyEvaluationFactory
 from ..errors import NotSupportedError
 
 class Field(abc.ABC):
@@ -20,16 +20,17 @@ class Field(abc.ABC):
         self.value = value
         self.method = method
 
-    def evaluate(self):
+    def evaluate(self, output_format):
         '''
             Returns a generator that provides all expected values for this
             Field instance.
         '''
-        gen = ChoiceMethod.evaluate_choice_method(self.method)(self)()
+        gen = StrategyEvaluationFactory.evaluate_strategy(
+                self.method).evaluate_field(self)()
 
         def format_generator():
             for item in gen:
-                yield self.format(item)
+                yield self.format(item, output_format)
 
         return format_generator()
 

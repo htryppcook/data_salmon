@@ -1,9 +1,5 @@
 
-from ..dataset.output_formats import output_formats
-from ..errors import NotSupportedError
-
 from .field import Field
-from .choice_methods import ChoiceMethod
 
 class IntegerField(Field):
     supported_choice_methods = (
@@ -40,12 +36,12 @@ class IntegerField(Field):
                     self.min, self.max, self.bit_length, self.signed)
 
     def format(self, item, output_format='txt'):
-        if output_format == 'txt':
+        if output_format == 'csv' or output_format == 'txt':
             return str(item)
         elif output_format == 'hex':
-            return (item).to_bytes(self.bit_length, 'big').hex()
+            return (item).to_bytes(int(self.bit_length/8), 'big').hex()
         elif output_format == 'bin':
-            return (item).to_bytes(self.bit_length, 'big')
+            return (item).to_bytes(int(self.bit_length/8), 'big')
         else:
             raise NotImplementedError(
                 'Output format {} is not implemented for this {}.'.format(
