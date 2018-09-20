@@ -1,7 +1,8 @@
 from .input_file_loader import InputFileLoader
 from .json_input_file_loader import JsonInputFileLoader
+from .dsl_input_file_loader import DSLInputFileLoader
 
 __all__ = [
-    'input_file_loader',
-    'json_input_file_loader'
+    'InputFileLoader',
+    'JsonInputFileLoader'
 ]

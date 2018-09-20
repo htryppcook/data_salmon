@@ -10,8 +10,8 @@ class data_salmon:
     def main(cls, namespace):
         if namespace.input_format == 'json':
             dataset = JsonInputFileLoader.load(namespace.input_file)
-        # elif namespace.input_format == 'dsl':
-            # DSLFileLoader()
+        elif namespace.input_format == 'dsl':
+            dataset = DSLInputFileLoader.load(namespace.input_file)
         else:
             raise NotImplementedError(
                 "{} input format is not implemented.".format(
