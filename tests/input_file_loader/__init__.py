@@ -1,6 +1,8 @@
 
-from .json_input_file_loader import test_json_input_file_loader
+from .test_json_input_file_loader import TestJsonInputFileLoader
+from .dsl_input_file_loader import TestDSLInputFileLoader
 
 __all__ = [
-    'json_input_file_loader'
+    'TestJsonInputFileLoader',
+    'TestDSLInputFileLoader'
 ]

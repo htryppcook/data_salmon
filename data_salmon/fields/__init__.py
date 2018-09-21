@@ -1,9 +1,11 @@
 from .field import Field
 from .integer_field import IntegerField
 from .string_field import StringField
+from .field_factory import FieldFactory
 
 __all__ = [
-    'field',
-    'integer_field',
-    'string_field'
+    'Field',
+    'IntegerField',
+    'StringField',
+    'FieldFactory'
 ]

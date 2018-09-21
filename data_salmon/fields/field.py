@@ -9,16 +9,16 @@ class Field(abc.ABC):
         Base class for fields.
     '''
 
-    supported_choice_methods = ('value')
+    supported_strategies = ('value')
 
-    def __init__(self, name, method, value=None):
-        if method not in self.supported_choice_methods:
+    def __init__(self, name, strategy, arguments=[]):
+        if strategy not in self.supported_strategies:
             raise NotSupportedError(
                 "'{} is not a supported choice method, supported: {}'".format(
-                    method, self.supported_choice_methods))
+                    strategy, self.supported_strategies))
         self.name = name
-        self.value = value
-        self.method = method
+        self.strategy = strategy
+        self.arguments = arguments
 
     def evaluate(self, output_format):
         '''
@@ -26,7 +26,7 @@ class Field(abc.ABC):
             Field instance.
         '''
         gen = StrategyEvaluationFactory.evaluate_strategy(
-                self.method).evaluate_field(self)()
+                self.strategy).evaluate_field(self)()
 
         def format_generator():
             for item in gen:
@@ -35,9 +35,6 @@ class Field(abc.ABC):
         return format_generator()
 
     def format(self, item, output_format=None):
-        if output_format == None:
-            return item
-        else:
-            raise NotImplementedError(
-                'Output format {} is not implemented for this {}.'.format(
-                    output_format, type(self)))
+        raise NotImplementedError(
+            'Output format {} is not implemented for this {}.'.format(
+                output_format, type(self)))

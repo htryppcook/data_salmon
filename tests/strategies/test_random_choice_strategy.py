@@ -9,14 +9,14 @@ class TestRandomChoiceStrategy:
     def test_random_choice(self):
         test_cases = [
             {
-                'input': { 'kwargs': { 'choices': [x for x in range(0,4)] } },
+                'input': [x for x in range(0,4)],
                 'expected': {
                     'count': range(0,10),
                     'choices': [x for x in range(0,4)]
                 }
             },
             {
-                'input': { 'kwargs': { 'choices': [0, 1, 0, 0, 3] } },
+                'input': [0, 1, 0, 0, 3],
                 'expected': {
                     'count': range(0,10),
                     'choices': [0, 1, 3]
@@ -26,8 +26,8 @@ class TestRandomChoiceStrategy:
 
         for test_case in test_cases:
             try:
-                field = IntegerField(name='field', method='random_choice',
-                    **test_case['input']['kwargs'])
+                field = IntegerField(name='field', strategy='random_choice',
+                    arguments=test_case['input'])
                 gen = RandomChoiceStrategy.evaluate_field(field)()
                 for results in zip(gen, test_case['expected']['count']):
                     assert_true(

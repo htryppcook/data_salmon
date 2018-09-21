@@ -1,5 +1,6 @@
 
 from .input_file_loader import JsonInputFileLoader
+from .input_file_loader.dsl_input_file_loader import DSLInputFileLoader
 from .dataset_evaluator import DatasetEvaluator
 
 class data_salmon:
@@ -17,7 +18,7 @@ class data_salmon:
                 "{} input format is not implemented.".format(
                     namespace.input_format))
 
-        print(dataset)
+        print("dataset: \n{}".format(dataset))
         DatasetEvaluator.evaluate(
             dataset, namespace.count, namespace.output_format,
             namespace.output_file)

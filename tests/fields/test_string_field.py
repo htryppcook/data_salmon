@@ -10,53 +10,48 @@ class TestStringField:
             {
                 'input': {
                     'kwargs': {
-                        'value': 1
+                        'arguments': [1]
                     }
                 },
                 'expected': {
-                    'value': '1',
-                    'method': 'value',
-                    'choices': []
+                    'strategy': 'value',
+                    'arguments': ['1']
                 }
             },
             {
                 'input': {
                     'kwargs': {
-                        'method': 'ordered_choice',
-                        'choices': ['a', 'b', 'c']
+                        'strategy': 'ordered_choice',
+                        'arguments': ['a', 'b', 'c']
                     }
                 },
                 'expected': {
-                    'value': None,
-                    'method': 'ordered_choice',
-                    'choices': ['a', 'b', 'c']
+                    'strategy': 'ordered_choice',
+                    'arguments': ['a', 'b', 'c']
                 }
             },
             {
                 'input': {
                     'kwargs': {
-                        'method': 'random_choice',
-                        'choices': ['a', 'b', 'c']
+                        'strategy': 'random_choice',
+                        'arguments': ['a', 'b', 'c']
                     }
                 },
                 'expected': {
-                    'value': None,
-                    'method': 'random_choice',
-                    'choices': ['a', 'b', 'c']
+                    'strategy': 'random_choice',
+                    'arguments': ['a', 'b', 'c']
                 }
             },
             {
                 'input': {
                     'kwargs': {
-                        'value': 'abcd',
-                        'method': 'ordered_choice',
-                        'choices': ['a', 'b', 'c']
+                        'strategy': 'ordered_choice',
+                        'arguments': ['a', 'b', 'c']
                     }
                 },
                 'expected': {
-                    'value': 'abcd',
-                    'method': 'ordered_choice',
-                    'choices': ['a', 'b', 'c']
+                    'strategy': 'ordered_choice',
+                    'arguments': ['a', 'b', 'c']
                 }
             },
         ]
@@ -70,28 +65,28 @@ class TestStringField:
         test_cases = [
             {
                 'input': {
-                    'value': 'a',
+                    'arguments': ['a'],
                     'output_format': 'txt'
                 },
                 'expected': 'a'
             },
             {
                 'input': {
-                    'value': 'a',
+                    'arguments': ['a'],
                     'output_format': 'hex'
                 },
                 'expected': '61'
             },
             {
                 'input': {
-                    'value': 'a',
+                    'arguments': ['a'],
                     'output_format': 'bin'
                 },
                 'expected': bytes([0x61])
             },
             {
                 'input': {
-                    'value': 65535,
+                    'arguments': [65535],
                     'output_format': None
                 },
                 'expected': NotImplementedError()
@@ -101,9 +96,9 @@ class TestStringField:
         for test_case in test_cases:
             try:
                 field = StringField(
-                    name='field', value=test_case['input']['value'])
+                    name='field', arguments=test_case['input']['arguments'])
                 assert_equals(
-                    field.format(field.value,
+                    field.format(field.arguments[0],
                                  test_case['input']['output_format']),
                     test_case['expected'])
             except NotImplementedError as nie:

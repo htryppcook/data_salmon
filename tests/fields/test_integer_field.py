@@ -10,34 +10,24 @@ class TestIntegerField:
             {
                 'input': {
                     'kwargs': {
-                        'value': 1
+                        'arguments': [1]
                     }
                 },
                 'expected': {
-                    'value': 1,
-                    'increment': None,
-                    'min': None,
-                    'max': None,
-                    'method': 'value',
-                    'choices': []
+                    'strategy': 'value',
+                    'arguments': [1]
                 }
             },
             {
                 'input': {
                     'kwargs': {
-                        'method': 'random_range',
-                        'increment': 1,
-                        'min': 1,
-                        'max': 42
+                        'strategy': 'random_range',
+                        'arguments': [1, 42, 1]
                     }
                 },
                 'expected': {
-                    'value': None,
-                    'increment': 1,
-                    'min': 1,
-                    'max': 43,
-                    'method': 'random_range',
-                    'choices': []
+                    'strategy': 'random_range',
+                    'arguments': [1, 42, 1]
                 }
             }
         ]
@@ -51,7 +41,7 @@ class TestIntegerField:
         test_cases = [
             {
                 'input': {
-                    'value': 1,
+                    'arguments': [1],
                     'bit_length': None,
                     'output_format': 'txt'
                 },
@@ -59,7 +49,7 @@ class TestIntegerField:
             },
             {
                 'input': {
-                    'value': 255,
+                    'arguments': [255],
                     'bit_length': 8,
                     'output_format': 'hex'
                 },
@@ -67,7 +57,7 @@ class TestIntegerField:
             },
             {
                 'input': {
-                    'value': 65535,
+                    'arguments': [65535],
                     'bit_length': 16,
                     'output_format': 'hex'
                 },
@@ -75,7 +65,7 @@ class TestIntegerField:
             },
             {
                 'input': {
-                    'value': 65535,
+                    'arguments': [65535],
                     'bit_length': 16,
                     'output_format': 'bin'
                 },
@@ -83,7 +73,7 @@ class TestIntegerField:
             },
             {
                 'input': {
-                    'value': 65535,
+                    'arguments': [65535],
                     'bit_length': 32,
                     'output_format': 'bin'
                 },
@@ -91,7 +81,7 @@ class TestIntegerField:
             },
             {
                 'input': {
-                    'value': 65535,
+                    'arguments': [65535],
                     'bit_length': 8,
                     'output_format': 'bin'
                 },
@@ -99,7 +89,7 @@ class TestIntegerField:
             },
             {
                 'input': {
-                    'value': 65535,
+                    'arguments': [65535],
                     'bit_length': 8,
                     'output_format': None
                 },
@@ -111,10 +101,10 @@ class TestIntegerField:
             try:
                 field = IntegerField(
                     name='field',
-                    value=test_case['input']['value'],
+                    arguments=test_case['input']['arguments'],
                     bit_length=test_case['input']['bit_length'])
                 assert_equals(
-                    field.format(field.value,
+                    field.format(field.arguments[0],
                                  test_case['input']['output_format']),
                     test_case['expected'])
             except OverflowError as oe:

@@ -16,12 +16,19 @@ class DSLGrammar(Grammar):
     numeric = Regex("[0-9]+(\.[0-9]+)?")
     quoted_string = Regex("(\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*\")")
     word = Regex("(?:\\w+)")
+    field_name = Regex("(?:\\w+)")
+    strategy = Regex("(?:\\w+)")
 
-    field_types = (
-        'string', 'int16', 'int32', 'int64', 'uint16', 'uint32', 'uint64')
-    field_type = Choice(*([Keyword(x) for x in [field_types]]))
-    field_name = word
-    strategy = word
+    field_type = Choice(
+        Keyword('string'),
+        Keyword('int16'),
+        Keyword('int32'),
+        Keyword('int64'),
+        Keyword('uint16'),
+        Keyword('uint32'),
+        Keyword('uint64')
+    )
+
     strategy_arguments = List(Choice(numeric, quoted_string))
 
     field = Sequence(
@@ -34,15 +41,9 @@ class DSLGrammar(Grammar):
         Token(')')
     )
 
-    dataset = Keyword('dataset')
-    dataset_name = word
-
-    dataset_definition = Sequence(
-        dataset,
-        dataset_name,
+    START = Sequence(
+        word,
         Token('{'),
         Repeat(field, mi=1),
         Token('}')
     )
-
-    START = dataset_definition

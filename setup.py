@@ -13,7 +13,7 @@ setup(
         'data_salmon.errors',
         'data_salmon.fields',
         'data_salmon.input_file_loader',
-        'data_salmon.input_file_loader.json_input_file_loader',
+        'data_salmon.input_file_loader.dsl_input_file_loader',
         'data_salmon.dataset_evaluator',
         'data_salmon.strategies'
     ],

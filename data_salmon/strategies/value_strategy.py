@@ -6,5 +6,5 @@ class ValueStrategy(Strategy):
     def evaluate_field(cls, field):
         def value_generator():
             while True:
-                yield field.value
+                yield field.arguments[0]
         return value_generator

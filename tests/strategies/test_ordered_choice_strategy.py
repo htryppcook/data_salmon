@@ -8,19 +8,19 @@ class TestOrderedChoiceStrategy:
     def test_ordered_choice(self):
         test_cases = [
             {
-                'input': { 'kwargs': { 'choices': [0, 1, 2, 3] } },
+                'input': [0, 1, 2, 3],
                 'expected': [0, 1, 2, 3, 0, 1, 2, 3, 0, 1]
             },
             {
-                'input': { 'kwargs': { 'choices': [0, 1, 0, 0, 3] } },
+                'input': [0, 1, 0, 0, 3],
                 'expected': [0, 1, 0, 0, 3, 0, 1, 0, 0, 3, 0]
             }
         ]
 
         for test_case in test_cases:
             try:
-                field = IntegerField(name='field', method='ordered_choice',
-                    **test_case['input']['kwargs'])
+                field = IntegerField(name='field', strategy='ordered_choice',
+                    arguments=test_case['input'])
                 gen = OrderedChoiceStrategy.evaluate_field(field)()
                 for results in zip(gen, test_case['expected']):
                     assert_equals(results[0], results[1])
