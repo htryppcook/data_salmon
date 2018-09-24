@@ -5,8 +5,8 @@ from .txt_dataset_evaluator import TxtDatasetEvaluator
 from .hex_dataset_evaluator import HexDatasetEvaluator
 
 __all__ = [
-    'dataset_evaluator',
-    'csv_dataset_evaluator',
-    'txt_dataset_evaluator',
-    'hex_dataset_evaluator'
+    'DatasetEvaluator',
+    'CsvDatasetEvaluator',
+    'TxtDatasetEvaluator',
+    'HexDatasetEvaluator'
 ]

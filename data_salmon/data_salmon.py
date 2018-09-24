@@ -3,7 +3,7 @@ from .input_file_loader import JsonInputFileLoader
 from .input_file_loader.dsl_input_file_loader import DSLInputFileLoader
 from .dataset_evaluator import DatasetEvaluator
 
-class data_salmon:
+class DataSalmon:
     def __init__(self):
         pass
 

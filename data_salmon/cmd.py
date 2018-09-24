@@ -2,7 +2,7 @@
 import sys
 import argparse
 
-from .data_salmon import data_salmon
+from .data_salmon import DataSalmon
 
 def main(argv=None):
     if argv == None:
@@ -26,7 +26,7 @@ def main(argv=None):
                         help='desired encoding for text-based output',
                         default='utf-8')
 
-    data_salmon.main(parser.parse_args(argv))
+    DataSalmon.main(parser.parse_args(argv))
 
 if __name__ == '__main__':
     main()
