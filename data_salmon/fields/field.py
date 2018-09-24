@@ -34,7 +34,40 @@ class Field(abc.ABC):
 
         return format_generator()
 
+    @abc.abstractmethod
+    def cast(self, item):
+        '''
+            Abstract method used to cast a primitive to the internal
+            representation used by a specific field implementation.
+
+            For example we could define an enum field like so:
+
+            python3:
+            class EnumField:
+                def __init__(self):
+                    self.enum = {'orange': 0, 'blue':1, 'green': 2}
+                def cast(self, item):
+                    return self.enum[item]
+
+            along with the following DSL:
+            enum_field field0 = random_choice('orange', 'blue', 'green')
+
+            which would output a field with value 0-2 chosen at random.
+        '''
+        raise NotImplementedError(
+            'Cast is not implemented for {}.'.format(type(self)))
+
+    @abc.abstractmethod
     def format(self, item, output_format=None):
+        '''
+            Abstract method used to convert a fields internal representation to
+            the requested output format.
+
+            For example, uint16 0 is stored as an int in the IntegerField
+            class, when the requested output format is hex, the string "0000"
+            will be output, for string output the character '0' will be output,
+            for binary two 0 bytes will be written.
+        '''
         raise NotImplementedError(
             'Output format {} is not implemented for this {}.'.format(
                 output_format, type(self)))

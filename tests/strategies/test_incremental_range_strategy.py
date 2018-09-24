@@ -37,6 +37,7 @@ class TestIncrementalRangeStrategy:
                     arguments=test_case['input']['arguments'])
                 gen = IncrementalRangeStrategy.evaluate_field(field)()
                 for results in zip(gen, test_case['expected']):
+                    print(results)
                     assert_equals(results[0], results[1])
             except TypeError as te:
                 assert_equals(type(te), type(test_case['expected']))

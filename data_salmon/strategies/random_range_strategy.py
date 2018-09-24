@@ -10,8 +10,8 @@ class RandomRangeStrategy(Strategy):
             raise ValueError('Random range arguments invalid, expecting: \n'
                 'random_range(min, max)')
 
-        minimum = field.arguments[0]
-        maximum = field.arguments[1]
+        minimum = field.cast(field.arguments[0])
+        maximum = field.cast(field.arguments[1])
 
         if minimum > maximum:
             raise ValueError(('Minimum ({}) must be lower than '

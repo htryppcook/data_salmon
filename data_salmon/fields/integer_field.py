@@ -15,7 +15,6 @@ class IntegerField(Field):
             signed=False):
         super(IntegerField, self).__init__(name, strategy, arguments)
 
-        self.arguments = [int(arg) for arg in self.arguments]
         self.bit_length = bit_length
         self.signed = signed
 
@@ -24,6 +23,9 @@ class IntegerField(Field):
                 'signed={})').format(
                     self.strategy, self.arguments, self.bit_length,
                     self.signed)
+
+    def cast(self, item):
+        return int(item)
 
     def format(self, item, output_format='txt'):
         if output_format == 'csv' or output_format == 'txt':

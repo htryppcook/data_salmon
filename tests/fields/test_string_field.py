@@ -15,7 +15,7 @@ class TestStringField:
                 },
                 'expected': {
                     'strategy': 'value',
-                    'arguments': ['1']
+                    'arguments': [1]
                 }
             },
             {

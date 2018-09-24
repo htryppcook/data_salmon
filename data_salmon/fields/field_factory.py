@@ -13,7 +13,7 @@ class FieldFactory:
             raise ValueError('Unknown type found: {}. Valid types: {}.'.format(
                 typ, registered_types))
 
-        if typ == 'string':
+        if typ in StringField.supported_types:
             return StringField(name, strategy, arguments)
         elif typ in IntegerField.supported_types:
             signed = False
