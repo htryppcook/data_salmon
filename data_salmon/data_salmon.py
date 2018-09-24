@@ -18,7 +18,7 @@ class data_salmon:
                 "{} input format is not implemented.".format(
                     namespace.input_format))
 
-        print("dataset: \n{}".format(dataset))
         DatasetEvaluator.evaluate(
             dataset, namespace.count, namespace.output_format,
-            namespace.output_file)
+            namespace.output_type, namespace.output_file,
+            namespace.output_encoding)
