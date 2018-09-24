@@ -29,7 +29,10 @@ class IPAddressField(Field):
                     self.strategy, self.arguments, self.version)
 
     def cast(self, item):
-        return int(self.construct_ip(item))
+        try:
+            return int(self.construct_ip(item))
+        except ipaddress.AddressValueError as ave:
+            return int(item)
 
     def format(self, item, output_format='txt'):
         ip_addr = self.construct_ip(item)

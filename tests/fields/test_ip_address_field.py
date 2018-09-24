@@ -59,6 +59,17 @@ class TestIPAddressField:
             for key in test_case['expected'].keys():
                 assert_equals(getattr(field, key), test_case['expected'][key])
 
+    def test_cast(self):
+        test_cases = [
+            { 'input': 0, 'expected': 0 },
+            { 'input': '1.2.3.4', 'expected': 16909060 },
+        ]
+
+        for test_case in test_cases:
+            field = IPAddressField('f0', 'ipv4')
+            assert_equals(
+                field.cast(test_case['input']), test_case['expected'])
+
     def test_format(self):
         test_cases = [
             {
@@ -106,8 +117,6 @@ class TestIPAddressField:
                                  test_case['input']['output_format']),
                     test_case['expected'])
             except TypeError as te:
-                print(str(te))
-                print(test_case['expected'])
                 assert_equals(type(te), type(test_case['expected']))
             except OverflowError as oe:
                 assert_equals(type(oe), type(test_case['expected']))

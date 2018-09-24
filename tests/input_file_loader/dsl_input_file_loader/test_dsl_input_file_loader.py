@@ -22,8 +22,15 @@ class TestDSLInputFileLoader:
             },
             {
                 'input': 'tests/datasets/dataset_3.dsl',
+                'expected': {
+                    'dataset_name': 'dataset_3',
+                    'total_fields': 6
+                }
+            },
+            {
+                'input': 'tests/datasets/error_dataset_1.dsl',
                 'expected': ValueError(
-                    '(tests/datasets/dataset_3.dsl) Error at 76, expecting '
+                    '(tests/datasets/error_dataset_1.dsl) Error at 78, expecting '
                     '{"strategy"}.')
             }
         ]
