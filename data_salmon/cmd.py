@@ -4,7 +4,10 @@ import argparse
 
 from .data_salmon import data_salmon
 
-def main(argv):
+def main(argv=None):
+    if argv == None:
+        argv = sys.argv
+
     parser = argparse.ArgumentParser()
 
     parser.add_argument('input_file', help='dataset description file')
@@ -26,4 +29,4 @@ def main(argv):
     data_salmon.main(parser.parse_args(argv))
 
 if __name__ == '__main__':
-    main(sys.argv)
+    main()
