@@ -33,7 +33,8 @@ class TestIncrementalRangeStrategy:
 
         for test_case in test_cases:
             try:
-                field = IntegerField(name='field', strategy='incremental_range',
+                field = IntegerField(
+                    name='field', typ='uint16', strategy='incremental_range',
                     arguments=test_case['input']['arguments'])
                 gen = IncrementalRangeStrategy.evaluate_field(field)()
                 for results in zip(gen, test_case['expected']):

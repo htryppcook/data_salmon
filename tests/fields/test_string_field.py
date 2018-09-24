@@ -57,7 +57,8 @@ class TestStringField:
         ]
 
         for test_case in test_cases:
-            field = StringField(name='field', **test_case['input']['kwargs'])
+            field = StringField(name='field', typ='string',
+                                **test_case['input']['kwargs'])
             for key in test_case['expected'].keys():
                 assert_equals(getattr(field, key), test_case['expected'][key])
 
@@ -96,7 +97,8 @@ class TestStringField:
         for test_case in test_cases:
             try:
                 field = StringField(
-                    name='field', arguments=test_case['input']['arguments'])
+                    name='field', typ='string',
+                    arguments=test_case['input']['arguments'])
                 assert_equals(
                     field.format(field.arguments[0],
                                  test_case['input']['output_format']),

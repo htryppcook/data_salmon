@@ -19,7 +19,8 @@ class TestOrderedChoiceStrategy:
 
         for test_case in test_cases:
             try:
-                field = IntegerField(name='field', strategy='ordered_choice',
+                field = IntegerField(
+                    name='field', typ='uint16', strategy='ordered_choice',
                     arguments=test_case['input'])
                 gen = OrderedChoiceStrategy.evaluate_field(field)()
                 for results in zip(gen, test_case['expected']):

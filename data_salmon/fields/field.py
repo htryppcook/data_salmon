@@ -11,12 +11,13 @@ class Field(abc.ABC):
 
     supported_strategies = ('value')
 
-    def __init__(self, name, strategy, arguments=[]):
+    def __init__(self, name, typ, strategy, arguments=[]):
         if strategy not in self.supported_strategies:
             raise NotSupportedError(
                 "'{} is not a supported choice method, supported: {}'".format(
                     strategy, self.supported_strategies))
         self.name = name
+        self.typ = typ
         self.strategy = strategy
         self.arguments = arguments
 

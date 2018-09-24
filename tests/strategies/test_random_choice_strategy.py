@@ -26,7 +26,8 @@ class TestRandomChoiceStrategy:
 
         for test_case in test_cases:
             try:
-                field = IntegerField(name='field', strategy='random_choice',
+                field = IntegerField(
+                    name='field', typ='uint16', strategy='random_choice',
                     arguments=test_case['input'])
                 gen = RandomChoiceStrategy.evaluate_field(field)()
                 for results in zip(gen, test_case['expected']['count']):

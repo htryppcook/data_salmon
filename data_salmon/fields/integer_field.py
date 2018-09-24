@@ -11,9 +11,18 @@ class IntegerField(Field):
         'int16', 'int32', 'int64', 'uint16', 'uint32', 'uint64'
     )
 
-    def __init__(self, name, strategy='value', arguments=[], bit_length=32,
-            signed=False):
-        super(IntegerField, self).__init__(name, strategy, arguments)
+    def __init__(self, name, typ, strategy='value', arguments=[]):
+        super(IntegerField, self).__init__(name, typ, strategy, arguments)
+
+        if typ not in self.supported_types:
+            raise TypeError('Invalid integer type: {}'.format(typ))
+
+        if typ.startswith('int'):
+            signed = True
+            bit_length = int(typ[3:])
+        else:
+            signed = False
+            bit_length = int(typ[4:])
 
         self.bit_length = bit_length
         self.signed = signed

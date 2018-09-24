@@ -26,7 +26,9 @@ class DSLGrammar(Grammar):
         Keyword('int64'),
         Keyword('uint16'),
         Keyword('uint32'),
-        Keyword('uint64')
+        Keyword('uint64'),
+        Keyword('ipv4'),
+        Keyword('ipv6')
     )
 
     strategy_arguments = List(Choice(numeric, quoted_string))

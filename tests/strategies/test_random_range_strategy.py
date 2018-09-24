@@ -20,7 +20,8 @@ class TestRandomRangeStrategy:
 
         for test_case in test_cases:
             try:
-                field = IntegerField(name='field', strategy='random_range',
+                field = IntegerField(
+                    name='field', typ='uint16', strategy='random_range',
                     arguments=test_case['input'])
                 gen = RandomRangeStrategy.evaluate_field(field)()
                 for results in zip(gen, test_case['expected']):

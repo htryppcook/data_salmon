@@ -6,8 +6,8 @@ class StringField(Field):
 
     supported_types = ('string',)
 
-    def __init__(self, name, strategy='value', arguments=[]):
-        super(StringField, self).__init__(name, strategy, arguments)
+    def __init__(self, name, typ, strategy='value', arguments=[]):
+        super(StringField, self).__init__(name, typ, strategy, arguments)
 
     def __str__(self):
         return 'StringField(strategy={}, arguments={})'.format(

@@ -23,7 +23,8 @@ class TestValueStrategy:
 
         for test_case in test_cases:
             try:
-                field = IntegerField(name='field', strategy='value',
+                field = IntegerField(
+                    name='field', typ='uint16', strategy='value',
                     arguments=test_case['input'])
                 gen = ValueStrategy.evaluate_field(field)()
                 for results in zip(gen, test_case['expected']):
