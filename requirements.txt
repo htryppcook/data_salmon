@@ -1,3 +1,4 @@
+pyleri
 python-dateutil
 nose
 rednose
