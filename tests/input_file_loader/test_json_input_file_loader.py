@@ -8,8 +8,8 @@ from data_salmon.input_file_loader.json_input_file_loader import \
 
 class TestJsonInputFileLoader:
     def test_load(self):
-        input_file = 'tests/datasets/dataset_1.json'
-        dataset = JsonInputFileLoader.load(input_file)
+        with open('tests/datasets/dataset_1.json', 'r') as input_file:
+            dataset = JsonInputFileLoader.load(input_file)
 
         assert_equals(len(dataset.fields), 2)
 

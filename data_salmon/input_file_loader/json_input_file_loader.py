@@ -11,11 +11,8 @@ class JsonInputFileLoader(InputFileLoader):
         Loads a json file and transforms it into data_salmon's internal format.
     '''
     @classmethod
-    def load(cls, input_file_path):
-        js_file = dict()
-
-        with open(input_file_path, 'r') as f:
-            js_file = json.load(f)
+    def load(cls, input_stream):
+        js_file = json.loads(input_stream.read())
 
         name = js_file['name']
         fields = js_file['fields']

@@ -1,0 +1,41 @@
+{
+    "name": "dataset_2",
+    "fields": [
+        {
+            "name": "field0",
+            "type": "int32",
+            "strategy": "incremental_range",
+            "arguments": [0, 100, 1]
+        },
+        {
+            "name": "field1",
+            "type": "string",
+            "strategy": "value",
+            "arguments": ["abcd"]
+        },
+        {
+            "name": "field2",
+            "type": "int32",
+            "strategy": "value",
+            "arguments": [42]
+        },
+        {
+            "name": "field3",
+            "type": "int32",
+            "strategy": "ordered_choice",
+            "arguments": [4,8,15,16,23,42]
+        },
+        {
+            "name": "field4",
+            "type": "ipv4",
+            "strategy": "random_range",
+            "arguments": ["1.2.3.4", "2.3.4.5"]
+        },
+        {
+            "name": "field5",
+            "type": "ipv4",
+            "strategy": "incremental_range",
+            "arguments": ["1.2.3.4", "1.2.3.16", 2]
+        }
+    ]
+}
