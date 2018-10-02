@@ -37,7 +37,8 @@ class TestDSLInputFileLoader:
 
         for test_case in test_cases:
             try:
-                dataset = DSLInputFileLoader.load(test_case['input'])
+                with open(test_case['input'], 'r') as input_file:
+                    dataset = DSLInputFileLoader.load(input_file)
                 assert_equals(
                     dataset.name, test_case['expected']['dataset_name'])
                 assert_equals(

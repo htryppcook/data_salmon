@@ -11,7 +11,7 @@ class Dataset:
             self.fields.append(field)
         else:
             raise ValueError(('{} is not an instance of class Field or one of '
-                'its subclasses').format(type(field)))
+                'its subclasses.').format(type(field)))
 
     def __str__(self):
         output = "{}: [\n".format(self.name)

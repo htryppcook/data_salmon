@@ -41,12 +41,11 @@ class DSLInputFileLoader:
         return dataset
 
     @classmethod
-    def load(cls, input_file_path):
-        with open(input_file_path, 'r') as f:
-            parsed = DSLGrammar().parse(f.read())
+    def load(cls, input_stream):
+        parsed = DSLGrammar().parse(input_stream.read())
 
         if not parsed.is_valid:
             raise ValueError('({}) Error at {}, expecting {}.'.format(
-                input_file_path, parsed.pos, parsed.expecting))
+                input_stream.name, parsed.pos, parsed.expecting))
 
         return DSLInputFileLoader.build_dataset(parsed.tree)

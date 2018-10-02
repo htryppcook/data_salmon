@@ -11,5 +11,5 @@ class InputFileLoader(abc.ABC):
     '''
 
     @abc.abstractmethod
-    def load(self, input_file_path):
+    def load(self, input_stream):
         raise NotImplementedError
