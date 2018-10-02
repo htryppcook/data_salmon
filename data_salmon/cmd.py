@@ -6,7 +6,7 @@ from .data_salmon import DataSalmon
 
 def main(argv=None):
     if argv == None:
-        argv = sys.argv
+        argv = sys.argv[1:]
 
     parser = argparse.ArgumentParser()
 
@@ -16,13 +16,15 @@ def main(argv=None):
                         default='stdin', choices=['stdin', 'file'])
     parser.add_argument('--input-format', help='dataset file format',
                         default='dsl', choices=['json', 'dsl'])
-    parser.add_argument('--input-file', help='dataset description file')
+    parser.add_argument('-i', '--input-file', help='dataset description file',
+                        default=None)
 
     parser.add_argument('--output-type', help='output type',
                         default='stdout', choices=['stdout', 'file'])
-    parser.add_argument('--output-format', help='output file format',
+    parser.add_argument('-o', '--output-format', help='output file format',
                         default='csv', choices=['txt', 'csv', 'hex', 'bin'])
-    parser.add_argument('--output-file', help='output file name')
+    parser.add_argument('-f', '--output-file', help='output file name',
+                        default=None)
     parser.add_argument('--output-encoding',
                         help='desired encoding for text-based output',
                         default='utf-8')

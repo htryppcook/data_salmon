@@ -37,13 +37,11 @@ class MainTest(unittest.TestCase):
                 'filename': f,
                 'input': [
                     '10',
-                    '--input-type=file',
+                    '-i', 'tests/datasets/{}.{}'.format(dataset, input_format),
                     '--input-format={}'.format(input_format),
-                    '--input-file=tests/datasets/{}.{}'.format(
-                        dataset, input_format),
                     '--output-type=file',
-                    '--output-format={}'.format(output_format),
-                    '--output-file=tests/datasets/results/{}'.format(f)
+                    '-o', '{}'.format(output_format),
+                    '-f', 'tests/datasets/results/{}'.format(f)
                 ],
                 'expected': 'tests/datasets/expected/{}'.format(f)
             })
@@ -61,10 +59,20 @@ class MainTest(unittest.TestCase):
             with redirect_stdout(captured):
                 main(test_case['input'])
 
-            assert_equals(
-                open('tests/datasets/results/{}'.format(
-                    test_case['filename']), 'rb').read(),
-                open('tests/datasets/expected/{}'.format(
-                    test_case['filename']), 'rb').read())
+            results_file = open('tests/datasets/results/{}'.format(
+                test_case['filename']), 'rb')
+            results = results_file.read()
+
+            expected_file = open('tests/datasets/expected/{}'.format(
+                test_case['filename']), 'rb')
+            expected = expected_file.read()
+
+            assert_true(len(results) > 0)
+            assert_true(len(expected) > 0)
+            assert_equals(len(results), len(expected))
+            assert_equals(results, expected)
 
             assert_true(captured.getvalue() == '')
+
+            results_file.close()
+            expected_file.close()
