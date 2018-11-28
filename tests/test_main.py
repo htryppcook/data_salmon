@@ -56,8 +56,8 @@ class MainTest(unittest.TestCase):
                 pass
 
             captured = StringIO()
-            with redirect_stdout(captured):
-                main(test_case['input'])
+            #with redirect_stdout(captured):
+            main(test_case['input'])
 
             results_file = open('tests/datasets/results/{}'.format(
                 test_case['filename']), 'rb')

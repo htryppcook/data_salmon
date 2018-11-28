@@ -15,6 +15,7 @@ setup(
         'data_salmon.input_file_loader',
         'data_salmon.input_file_loader.dsl_input_file_loader',
         'data_salmon.dataset_evaluator',
+        'data_salmon.dataset_writer',
         'data_salmon.strategies'
     ],
     entry_points={

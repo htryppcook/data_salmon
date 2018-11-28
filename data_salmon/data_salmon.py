@@ -4,7 +4,7 @@ from sys import stdout
 
 from .input_file_loader import JsonInputFileLoader
 from .input_file_loader.dsl_input_file_loader import DSLInputFileLoader
-from .dataset_evaluator import DatasetEvaluator
+from .dataset_writer import DatasetWriterFactory
 
 class DataSalmon:
     def __init__(self):
@@ -42,9 +42,8 @@ class DataSalmon:
                 "{} input format is not implemented.".format(
                     namespace.input_format))
 
-        DatasetEvaluator.evaluate(
-            dataset, namespace.count, namespace.output_format, output_stream,
-            namespace.output_encoding)
+        DatasetWriterFactory.build(dataset, namespace.output_format,
+            namespace.output_encoding).write(output_stream, namespace.count)
 
         if in_file:
             input_stream.close()

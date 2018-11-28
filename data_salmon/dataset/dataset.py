@@ -4,7 +4,7 @@ from data_salmon.fields import Field
 class Dataset:
     def __init__(self, name):
         self.name = name
-        self.fields = []
+        self.fields = list()
 
     def append_field(self, field):
         if isinstance(field, Field):
