@@ -1,6 +1,6 @@
 # DataSalmon
 
-Python3.6+ library used to generate sample datasets from configuration files. Users can specify a dataset they wish to build using the DSL, and then generate files by calling DataSalmon:
+Python3.7+ library used to generate sample datasets from configuration files. Users can specify a dataset they wish to build using the DSL, and then generate files by calling DataSalmon:
 
 ```
 # Generate 100 records using the dataset definition in dataset.dsl
