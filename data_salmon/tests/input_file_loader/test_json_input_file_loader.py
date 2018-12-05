@@ -5,10 +5,11 @@ from data_salmon.fields import IntegerField
 from data_salmon.fields import StringField
 from data_salmon.input_file_loader.json_input_file_loader import \
     JsonInputFileLoader
+from data_salmon.tests.datasets import Datasets
 
 class TestJsonInputFileLoader:
     def test_load(self):
-        with open('tests/datasets/dataset_1.json', 'r') as input_file:
+        with open(Datasets.input_file('dataset_1.json'), 'r') as input_file:
             dataset = JsonInputFileLoader.load(input_file)
 
         assert_equals(len(dataset.fields), 2)

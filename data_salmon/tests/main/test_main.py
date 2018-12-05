@@ -12,6 +12,7 @@ from nose.tools import assert_true
 from nose.tools import assert_equals
 
 from data_salmon.cmd import main
+from data_salmon.tests.datasets import *
 
 class MainTest(unittest.TestCase):
     def test_main_help(self):
@@ -37,34 +38,35 @@ class MainTest(unittest.TestCase):
                 'filename': f,
                 'input': [
                     '10',
-                    '-i', 'tests/datasets/{}.{}'.format(dataset, input_format),
+                    '-i', Datasets.input_file(
+                        '{}.{}'.format(dataset, input_format)),
                     '--input-format={}'.format(input_format),
                     '--output-type=file',
                     '-o', '{}'.format(output_format),
-                    '-f', 'tests/datasets/results/{}'.format(f)
+                    '-f', Datasets.results_file(f)
                 ],
-                'expected': 'tests/datasets/expected/{}'.format(f)
+                'expected': Datasets.expected_file(f)
             })
 
         for test_case in test_cases:
             # initialize random seed to 0, so tests are repeatable
             random.seed(0)
             try:
-                os.remove(
-                    'tests/datasets/results/{}'.format(test_case['filename']))
+                os.remove(Datasets.results_file(test_case['filename']))
             except:
                 pass
 
             captured = StringIO()
             #with redirect_stdout(captured):
+            print(test_case['input'])
             main(test_case['input'])
 
-            results_file = open('tests/datasets/results/{}'.format(
-                test_case['filename']), 'rb')
+            results_file = open(
+                Datasets.results_file(test_case['filename']), 'rb')
             results = results_file.read()
 
-            expected_file = open('tests/datasets/expected/{}'.format(
-                test_case['filename']), 'rb')
+            expected_file = open(
+                Datasets.expected_file(test_case['filename']), 'rb')
             expected = expected_file.read()
 
             assert_true(len(results) > 0)

@@ -2,36 +2,37 @@
 from nose.tools import assert_equals
 
 from data_salmon.input_file_loader import DSLInputFileLoader
+from data_salmon.tests.datasets import Datasets
 
 class TestDSLInputFileLoader:
     def test(self):
         test_cases = [
             {
-                'input': 'tests/datasets/dataset_1.dsl',
+                'input': Datasets.input_file('dataset_1.dsl'),
                 'expected': {
                     'dataset_name': 'dataset_1',
                     'total_fields': 2
                 }
             },
             {
-                'input': 'tests/datasets/dataset_2.dsl',
+                'input': Datasets.input_file('dataset_2.dsl'),
                 'expected': {
                     'dataset_name': 'dataset_2',
                     'total_fields': 4
                 }
             },
             {
-                'input': 'tests/datasets/dataset_3.dsl',
+                'input': Datasets.input_file('dataset_3.dsl'),
                 'expected': {
                     'dataset_name': 'dataset_3',
                     'total_fields': 6
                 }
             },
             {
-                'input': 'tests/datasets/error_dataset_1.dsl',
+                'input': Datasets.input_file('error_dataset_1.dsl'),
                 'expected': ValueError(
-                    '(tests/datasets/error_dataset_1.dsl) Error at 78, expecting '
-                    '{"strategy"}.')
+                    '(/app/data_salmon/tests/datasets/input/error_dataset_1.dsl'
+                    ') Error at 78, expecting {"strategy"}.')
             }
         ]
 
@@ -44,5 +45,6 @@ class TestDSLInputFileLoader:
                 assert_equals(
                     len(dataset.fields), test_case['expected']['total_fields'])
             except ValueError as ve:
+                print(str(ve))
                 assert_equals(type(ve), type(test_case['expected']))
                 assert_equals(str(ve), str(test_case['expected']))

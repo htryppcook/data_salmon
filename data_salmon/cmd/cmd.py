@@ -2,7 +2,8 @@
 import sys
 import argparse
 
-from .data_salmon import DataSalmon
+from data_salmon import DataSalmon
+from .test_action import _TestAction
 
 def main(argv=None):
     if argv == None:
@@ -28,6 +29,9 @@ def main(argv=None):
     parser.add_argument('--output-encoding',
                         help='desired encoding for text-based output',
                         default='utf-8')
+
+    parser.add_argument('--tests', help='run all tests and exit',
+                        action=_TestAction)
 
     DataSalmon.main(parser.parse_args(argv))
 
