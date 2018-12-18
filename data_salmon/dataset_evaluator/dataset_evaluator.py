@@ -1,6 +1,4 @@
 
-from collections import OrderedDict
-
 class DatasetEvaluator:
     @staticmethod
     def evaluate(dataset, output_format):
