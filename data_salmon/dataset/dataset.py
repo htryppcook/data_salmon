@@ -1,13 +1,18 @@
 
 from data_salmon.fields import Field
+from data_salmon.fields import ReflectiveField
 
 class Dataset:
     def __init__(self, name):
         self.name = name
         self.fields = list()
+        self.reflective_fields = list()
 
     def append_field(self, field):
-        if isinstance(field, Field):
+        if isinstance(field, ReflectiveField):
+            self.reflective_fields.append(field)
+            self.fields.append(field)
+        elif isinstance(field, Field):
             self.fields.append(field)
         else:
             raise ValueError(('{} is not an instance of class Field or one of '

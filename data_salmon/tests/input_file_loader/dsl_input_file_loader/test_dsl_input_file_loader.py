@@ -11,21 +11,24 @@ class TestDSLInputFileLoader:
                 'input': Datasets.input_file('dataset_1.dsl'),
                 'expected': {
                     'dataset_name': 'dataset_1',
-                    'total_fields': 2
+                    'total_fields': 3,
+                    'total_reflective_fields': 1,
                 }
             },
             {
                 'input': Datasets.input_file('dataset_2.dsl'),
                 'expected': {
                     'dataset_name': 'dataset_2',
-                    'total_fields': 4
+                    'total_fields': 4,
+                    'total_reflective_fields': 0
                 }
             },
             {
                 'input': Datasets.input_file('dataset_3.dsl'),
                 'expected': {
                     'dataset_name': 'dataset_3',
-                    'total_fields': 6
+                    'total_fields': 6,
+                    'total_reflective_fields': 0
                 }
             },
             {
@@ -44,6 +47,9 @@ class TestDSLInputFileLoader:
                     dataset.name, test_case['expected']['dataset_name'])
                 assert_equals(
                     len(dataset.fields), test_case['expected']['total_fields'])
+                assert_equals(
+                    len(dataset.reflective_fields),
+                    test_case['expected']['total_reflective_fields'])
             except ValueError as ve:
                 print(str(ve))
                 assert_equals(type(ve), type(test_case['expected']))

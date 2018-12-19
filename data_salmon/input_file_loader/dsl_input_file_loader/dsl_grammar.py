@@ -31,7 +31,7 @@ class DSLGrammar(Grammar):
         Keyword('ipv6')
     )
 
-    strategy_arguments = List(Choice(numeric, quoted_string))
+    strategy_arguments = List(Choice(numeric, quoted_string, field_name))
 
     field = Sequence(
         field_type,

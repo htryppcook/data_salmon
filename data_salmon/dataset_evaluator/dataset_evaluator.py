@@ -15,5 +15,8 @@ class DatasetEvaluator:
                 for field in dataset.fields:
                     record[field.name] = next(gen_dict[field.name])
 
+                for field in dataset.reflective_fields:
+                    field.reflective_evaluate(record, output_format)
+
                 yield record.values()
         return record_generator()

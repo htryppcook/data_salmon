@@ -3,6 +3,7 @@ from . import Field
 from . import StringField
 from . import IntegerField
 from . import IPAddressField
+from . import LengthField
 
 class FieldFactory:
     @classmethod
@@ -15,7 +16,9 @@ class FieldFactory:
             raise ValueError('Unknown type found: {}. Valid types: {}.'.format(
                 typ, registered_types))
 
-        if typ in StringField.supported_types:
+        if strategy == LengthField.length_strategy_name:
+            return LengthField(name, typ, strategy, arguments)
+        elif typ in StringField.supported_types:
             return StringField(name, typ, strategy, arguments)
         elif typ in IntegerField.supported_types:
             return IntegerField(name, typ, strategy, arguments)

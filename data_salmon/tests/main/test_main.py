@@ -71,7 +71,7 @@ class MainTest(unittest.TestCase):
 
             assert_true(len(results) > 0)
             assert_true(len(expected) > 0)
-            assert_equals(len(results), len(expected))
+            #assert_equals(len(results), len(expected))
             assert_equals(results, expected)
 
             assert_true(captured.getvalue() == '')

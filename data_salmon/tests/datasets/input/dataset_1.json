@@ -2,16 +2,22 @@
     "name": "dataset_1",
     "fields": [
         {
-            "name": "field0",
-            "type": "string",
-            "strategy": "value",
-            "arguments": ["abcd"]
+            "type": "int16",
+            "name": "field0_length",
+            "strategy": "length",
+            "arguments": ["field0"]
         },
         {
-            "name": "field1",
             "type": "int32",
+            "name": "field0",
+            "strategy": "incremental_range",
+            "arguments": [0, 100, 1]
+        },
+        {
+            "type": "string",
+            "name": "field1",
             "strategy": "value",
-            "arguments": [65535]
+            "arguments": ["abcd"]
         }
     ]
 }
