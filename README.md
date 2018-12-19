@@ -1,6 +1,6 @@
 # DataSalmon
 
-Python3 library used to generate sample datasets from configuration files. Users can specify a dataset they wish to build using the DSL, and then generate files by calling DataSalmon:
+Python3.7+ library used to generate sample datasets from configuration files. Users can specify a dataset they wish to build using the DSL, and then generate files by calling DataSalmon:
 
 ```
 # Generate 100 records using the dataset definition in dataset.dsl
@@ -26,6 +26,24 @@ index,fish
 2,fish
 red,fish
 blue,fish
+```
+
+With fishes2.dsl
+```
+fishes2 {
+  string fish_len = length(fish)
+  string fish = ordered_choice("salmon", "tuna", "halibut")
+}
+```
+Call:
+```
+> data_salmon -i fishes2.dsl -o txt 4
+1fish2fishredfishbluefish
+> data_salmon -i fishes2.dsl -o csv 4
+fish_len,fish
+6,salmon
+4,tuna
+7,halibut
 ```
 
 With 4-tuple netflow.dsl
@@ -71,7 +89,7 @@ from_port,from_addr,to_port,to_addr
 Dataset
 ```
 dataset_name {
-  type field_name = strategy(arguments, arguments)
+  type field_name = strategy(argument, argument)
 }
 ```
 
@@ -83,6 +101,12 @@ ipv4, ipv6
 Currently supported strategies:
 value(argument)
 Can only generate the argument specified in the strategy constructor for each record.
+
+length(field_name)
+Produces the length of the specified field.
+
+bit_length(field_name)
+Produces the bit length of the specified field.
 
 incremental_range(min, max, increment)
 Supports integer and IP address types.
