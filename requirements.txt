@@ -1,3 +1,5 @@
+pyleri
 python-dateutil
+coverage
 nose
 rednose
